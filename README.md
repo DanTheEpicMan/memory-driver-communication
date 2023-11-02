@@ -6,20 +6,21 @@ Communicating between Kernel Driver and user mode process using memory access fu
 
 outline for process logic:
 
-usermode:
-|===================|
-| Usermode process  |
-| ________ _________|
-| Ubuffer | Kbuffer |
-|===================|
+usermode: \n
+|===================| \n
+| Usermode process  | \n
+| ________ _________| \n
+| Ubuffer | Kbuffer | \n
+|===================| \n
 
 ---------------------------------------------------
-kernel:
-|===================|
-| kernel driver     |
-|MmCopyVirtualMemory|
-|===================|
-
-Kernel driver would use MmCopyVirtualMemory to read and write to a usermode process.
-KBuffer->kernel driver
-UBuffer<-kernel driver
+\n 
+kernel: \n
+|===================| \n
+| kernel driver     | \n 
+|MmCopyVirtualMemory| \n 
+|===================| \n
+\n
+Kernel driver would use MmCopyVirtualMemory to read and write to a usermode process. \n
+KBuffer->kernel driver \n
+UBuffer<-kernel driver \n
