@@ -11,8 +11,10 @@ usermode:  <br />
 | Usermode process  | <br />
 | ________ _________| <br />
 | Ubuffer | Kbuffer | <br />
-|===================| <br />
+|===================| <br /> 
+ <br />
 ===============kerel boundary================
+ <br />
 <br />
 kernel: <br />
 |===================| <br />
