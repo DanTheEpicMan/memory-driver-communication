@@ -5,6 +5,7 @@
 Communicating between Kernel Driver and user mode process using memory access functions.
 
 outline for process logic:
+<pre>
 
 usermode:  <br />
 |===================| <br />
@@ -22,6 +23,7 @@ kernel: <br />
 |MmCopyVirtualMemory| <br /> 
 |===================| <br />
 <br />
+ </pre>
 Kernel driver would use MmCopyVirtualMemory to read and write to a usermode process. <br />
 KBuffer->kernel driver <br />
 UBuffer<-kernel driver <br />
