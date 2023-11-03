@@ -63,25 +63,31 @@ NTSTATUS DriverEntry(
 	_In_  PUNICODE_STRING RegistryPath
 )
 {
-	//PVOID Address = (PVOID)0x000000939637FA64;
-	//int PID = 23096;
+	DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "Entered\n");
 
-	DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "hello\n");
+	//hardcoded, fix later
+	PVOID KBufferAddr = (PVOID)0x000000541CCFF820;
+	PVOID UBufferAddr = (PVOID)0x000000541CCFF824;
+	int PID = 7004;
 
-	//int readstore;
-	//int Writeval = 300;
+	int KBuffer;		//read
+	int UBuffer = 55;	//write
 
-	//PEPROCESS Process; // our target process
-	//// enter your process ID here.
-	//PsLookupProcessByProcessId(PID, &Process); //lookup the process by it's id;
+	PEPROCESS Process; // our target process
+	PsLookupProcessByProcessId(PID, &Process); //lookup the process by it's id;
 
-	//KeReadProcessMemory(Process, Address, &readstore, sizeof(__int32));
 
-	//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "(R) Value of int i: %d\n", readstore);
+	//read from usermode
+	KeReadProcessMemory(Process, KBufferAddr, &KBuffer, sizeof(__int32));
+	DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "(R) Value read: %d\n", KBuffer);
 
-	//KeWriteProcessMemory(Process, &Writeval, Address, sizeof(__int32));
+	////proves we are recviving from usermode
+	//UBuffer = KBuffer + 1;
 
-	//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "(W) Value of int i: %d\n", Writeval);
+	//write to usermode
+	KeWriteProcessMemory(Process, &UBuffer, UBufferAddr, sizeof(__int32));
+	DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "(W) Value written: %d\n", UBuffer);
+
 
 	return STATUS_SUCCESS;
 }
