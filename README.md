@@ -1,6 +1,6 @@
 # memory-driver-communication
 
-# Project is not closed to finished as of 11-02-23
+# This Project is semi-operational
 
 Communicating between Kernel Driver and user mode process using memory access functions.
 
@@ -27,9 +27,11 @@ kernel:
 Kernel driver would use MmCopyVirtualMemory to read and write to a usermode process. <br />
 KBuffer->kernel driver <br />
 UBuffer<-kernel driver <br />
+<br />
+This driver is loaded with KDMapper and then creates a thread that then lives on and lets main finish.
 
 # Why use this communication method?
 When manually mapping a kernel driver with a program like KDMapper, the cache of the driver is erased, leaving IOCTL communication impossible and causing the computer to crash whenever an attempt is made to use IOCTL on a driver that was manually mapped with KDMapper.
 
 # ToDo
-Implement a kind of loop into the driver (not a real loop as that driver would not be able to be fully mapped, also causes a memory leak and boots you out of windows (but does not crash)) using something like a timer to wake the driver up every couple of seconds. This sudo loop would allow us to constantly poll KBuffer for any changes and to execute commands based on those changes, outputting it to UBuffer and going back to sleep.
+Get rid of the hardcoded values for the address and the PID or make the program retive these hardcoded files in a different manor that just hardcoding them
