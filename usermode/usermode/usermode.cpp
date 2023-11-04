@@ -1,26 +1,43 @@
 #include <iostream>
 #include <Windows.h>
 
+//edit if you need to pass through more
+struct KBufferStruct
+{
+    int x;
+};
+
+//edit if you meed to get through more
+struct UBufferStruct
+{
+    int x;
+};
+
 int main()
 {
     //Buffer to be passed to kernel
-    int KBuffer = 100;
+    KBufferStruct KBuffer;
+    KBuffer.x = 1234;
+
     //BUffer written to by kernel
-    int UBuffer = 200;
+    UBufferStruct UBuffer;
+    UBuffer.x = 4321;
 
     //memory address of both of these buffers
     const auto KBufferAddr = &KBuffer;
     const auto UBufferAddr = &UBuffer;
 
-    //prints out PID of this process
+    //prints out PID of this process as well as addresses of KBuffer and UBuffer
     DWORD pid = GetCurrentProcessId();
     std::cout << "PID: " << pid << std::endl;
+    std::cout << "KBuffer Address: " << KBufferAddr << std::endl;
+    std::cout << "UBuffer Address: " << UBufferAddr << std::endl;
 
     while (true) 
     {
-        //prints out the address of these buffers to terminal
-        std::cout << "KBuffer Address: " << KBufferAddr << std::endl;
-        std::cout << "UBuffer Address: " << UBufferAddr << std::endl;
+        //prints out the value of these buffers to terminal
+        std::cout << "KBuffer Address: " << KBuffer.x << std::endl;
+        std::cout << "UBuffer Address: " << UBuffer.x << std::endl;
 
         //allows us to change the KBuffer to send new values to driver
         int response;
@@ -28,10 +45,11 @@ int main()
         std::cin >> response;
         if (response != 0)
         {
-            response = KBuffer;
+            KBuffer.x = response;
         }
 
     }
 
     
 }
+
